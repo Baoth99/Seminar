@@ -1,0 +1,1 @@
+export const IsEmpty = (str) => str.length == 0 || str === ''
