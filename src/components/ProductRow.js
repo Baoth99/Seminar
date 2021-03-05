@@ -5,7 +5,7 @@ import {ApiPut, ApiDelete} from '../api/ApiCaller';
 import Toast from 'react-native-tiny-toast';
 
 
-const ProductRow = ({product}) => {
+const ProductRow = ({product, no}) => {
     const [visible, setVisible] = React.useState(false);
     const {id,code, name, quantity, origin, price} = product;
     const [data, setData] = React.useState(product)
@@ -16,16 +16,19 @@ const ProductRow = ({product}) => {
     }
 
     const onHandleUpdate = async () => {
-        Toast.show('This is a default toast');
-        await ApiPut(`product/${id}`, data).then(res => {
-            console.log(res.status);
+        await ApiPut(`product/${id}`, data).then(res => { 
+            if(res.status == 200) {
+                Toast.show('Update Successful !');
+            }
         })
         setVisible(false);
     }
 
     const onHandleDelete = async () => {
         await ApiDelete(`product/${id}`).then(res => {
-            console.log(res.status);
+            if(res.status == 200) {
+                Toast.show('Delete Successful !');
+            }
         })
 
         setVisible(false)
@@ -57,6 +60,7 @@ const ProductRow = ({product}) => {
             </Portal>
             <TouchableOpacity onPress={() => productDetail()}>
                 <DataTable.Row>
+                    <DataTable.Cell>{no}</DataTable.Cell>
                     <DataTable.Cell>{code}</DataTable.Cell>
                     <DataTable.Cell numeric>{name}</DataTable.Cell>
                     <DataTable.Cell numeric>{quantity}</DataTable.Cell>

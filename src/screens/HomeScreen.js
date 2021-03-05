@@ -6,14 +6,16 @@ import { StyleSheet, View } from 'react-native';
 
 const HomeScreen = ({ navigation }) => {
 
+    const reload = React.useRef();
+
     const handleReload = () => {
         console.log('reload');
-        
+         reload.current.handleReload();        
     }
 
     return (
         <>
-            <ProductTable/>
+            <ProductTable ref={reload}/>
             <View style={styles.container}>
                 <Button  mode="contained" 
                     style={styles.button} 
